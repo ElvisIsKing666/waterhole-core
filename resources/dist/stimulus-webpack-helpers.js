@@ -1,0 +1,1 @@
+function f(t){return t.keys().map(n=>i(t,n)).filter(n=>n)}function i(t,n){const e=r(n);if(e)return o(t(n),e)}function o(t,n){const e=t.default;if(typeof e=="function")return{identifier:n,controllerConstructor:e}}function r(t){const n=(t.match(/^(?:\.\/)?(.+)(?:[_-]controller\..+?)$/)||[])[1];if(n)return n.replace(/_/g,"-").replace(/\//g,"--")}export{f as d};
