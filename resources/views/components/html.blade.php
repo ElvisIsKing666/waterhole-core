@@ -22,13 +22,17 @@
             @endif
         </script>
 
-        @foreach (Waterhole\Extend\Stylesheet::urls(['default', 'default-'.App::getLocale(), ...$assets]) as $url)
-            <link href="{{ $url }}" rel="stylesheet" data-turbo-track="reload" />
-        @endforeach
+        @vite(['resources/css/global/app.css'])
+        @if(request()->is('cp*'))
+            @vite(['resources/css/cp/app.css'])
+        @endif
 
-        @foreach (Waterhole\Extend\Script::urls(['default', 'default-'.App::getLocale(), ...$assets]) as $url)
-            <script src="{{ $url }}" defer data-turbo-track="reload"></script>
-        @endforeach
+        @vite(['resources/js/index.ts'])
+        @vite(['resources/js/highlight.ts'])
+        @vite(['resources/js/emoji.ts'])
+        @if(request()->is('cp*'))
+            @vite(['resources/js/cp/index.ts'])
+        @endif
 
         <script>
             window.Waterhole = @json($payload);

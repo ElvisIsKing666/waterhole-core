@@ -17,6 +17,7 @@ class WaterholeServiceProvider extends AggregateServiceProvider
         RouteServiceProvider::class,
         SearchServiceProvider::class,
         TranslationServiceProvider::class,
+        ViteServiceProvider::class,
         ViewServiceProvider::class,
     ];
 }

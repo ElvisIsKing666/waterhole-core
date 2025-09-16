@@ -20,8 +20,5 @@ class Script
     const FILE_EXTENSION = 'js';
 }
 
-Script::add(__DIR__ . '/../../resources/dist/index.js');
-Script::add(__DIR__ . '/../../resources/dist/highlight.js');
-Script::add(__DIR__ . '/../../resources/dist/emoji.js');
-
-Script::add(__DIR__ . '/../../resources/dist/cp.js', bundle: 'cp');
+// Vite will handle asset compilation and manifest generation
+// Assets are now registered via vite.config.js and accessed through Vite's manifest

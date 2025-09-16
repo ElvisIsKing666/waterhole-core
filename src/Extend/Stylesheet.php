@@ -20,5 +20,5 @@ class Stylesheet
     const FILE_EXTENSION = 'css';
 }
 
-Stylesheet::add(__DIR__ . '/../../resources/dist/global.css');
-Stylesheet::add(__DIR__ . '/../../resources/dist/cp.css', bundle: 'cp');
+// Vite will handle asset compilation and manifest generation
+// Assets are now registered via vite.config.js and accessed through Vite's manifest
