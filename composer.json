@@ -17,7 +17,7 @@
         "kirschbaum-development/eloquent-power-joins": "^3.2|^4.2",
         "laminas/laminas-feed": "^2.20",
         "laravel/framework": "^10.0|^11.0|^12.0",
-        "laravel/socialite": "^v5.10.0",
+        "laravel/socialite": "^5.23",
         "s9e/text-formatter": "^2.13",
         "secondnetwork/blade-tabler-icons": "^3.0",
         "staudenmeir/laravel-adjacency-list": "^1.7",
@@ -26,7 +26,8 @@
     },
     "require-dev": {
         "larastan/larastan": "^2.11",
-        "orchestra/testbench": "^8.5"
+        "orchestra/testbench": "^8.5",
+        "pestphp/pest": "^2.36"
     },
     "autoload": {
         "psr-4": {
@@ -44,7 +45,10 @@
     },
     "config": {
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "branch-alias": {
