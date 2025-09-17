@@ -3,6 +3,7 @@
 use Waterhole\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     public function up()
@@ -26,7 +27,7 @@ return new class extends Migration {
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->nullOnDelete();
-            $table->mediumText('body')->fulltext();
+            $table->mediumText('body');
             $table
                 ->timestamp('created_at')
                 ->nullable()
@@ -41,6 +42,13 @@ return new class extends Migration {
                 ->default(0)
                 ->index();
         });
+
+        // Add fulltext indexes only for MySQL
+        if (DB::connection()->getDriverName() === 'mysql') {
+            Schema::table('comments', function (Blueprint $table) {
+                $table->index('body')->fulltext();
+            });
+        }
     }
 
     public function down()

@@ -3,6 +3,7 @@
 use Waterhole\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     public function up()
@@ -22,10 +23,9 @@ return new class extends Migration {
                 ->nullOnDelete();
             $table
                 ->string('title')
-                ->nullable()
-                ->fulltext();
+                ->nullable();
             $table->string('slug')->nullable();
-            $table->mediumText('body')->fulltext();
+            $table->mediumText('body');
             $table
                 ->timestamp('created_at')
                 ->nullable()
@@ -50,6 +50,14 @@ return new class extends Migration {
 
             $table->index(['channel_id', 'created_at']); // used to get new post count within each channel
         });
+
+        // Add fulltext indexes only for MySQL
+        if (DB::connection()->getDriverName() === 'mysql') {
+            Schema::table('posts', function (Blueprint $table) {
+                $table->index('title')->fulltext();
+                $table->index('body')->fulltext();
+            });
+        }
     }
 
     public function down()

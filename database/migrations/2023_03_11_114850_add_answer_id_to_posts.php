@@ -3,6 +3,7 @@
 use Waterhole\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     public function up(): void
@@ -19,8 +20,16 @@ return new class extends Migration {
 
     public function down(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropConstrainedForeignId('answer_id');
-        });
+        // Skip foreign key drop for SQLite as it's not supported
+        if (DB::connection()->getDriverName() !== 'sqlite') {
+            Schema::table('posts', function (Blueprint $table) {
+                $table->dropConstrainedForeignId('answer_id');
+            });
+        } else {
+            // For SQLite, just drop the column without the foreign key constraint
+            Schema::table('posts', function (Blueprint $table) {
+                $table->dropColumn('answer_id');
+            });
+        }
     }
 };

@@ -3,6 +3,7 @@
 use Waterhole\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     public function up(): void
@@ -25,7 +26,16 @@ return new class extends Migration {
     {
         Schema::table('comments', function (Blueprint $table) {
             $table->dropColumn('hidden_at');
-            $table->dropConstrainedForeignId('hidden_by');
+        });
+        
+        // Skip foreign key drop for SQLite as it's not supported
+        if (DB::connection()->getDriverName() !== 'sqlite') {
+            Schema::table('comments', function (Blueprint $table) {
+                $table->dropConstrainedForeignId('hidden_by');
+            });
+        }
+        
+        Schema::table('comments', function (Blueprint $table) {
             $table->dropColumn('hidden_reason');
         });
     }
