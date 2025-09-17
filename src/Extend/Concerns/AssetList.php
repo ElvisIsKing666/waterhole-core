@@ -4,6 +4,7 @@ namespace Waterhole\Extend\Concerns;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Vite;
 
 /**
  * Manage a list of assets grouped into bundles.
@@ -33,25 +34,35 @@ trait AssetList
      */
     public static function urls(array $bundles): array
     {
-        $files = [];
+        $urls = [];
 
         foreach ($bundles as $bundle) {
-            if (config('app.debug')) {
-                static::flushBundle($bundle);
+            if ($bundle === 'default') {
+                // Use Vite directly for CSS assets
+                $urls[] = Vite::asset('resources/css/global/app.css', 'waterhole');
+                $urls[] = Vite::asset('resources/css/cp/app.css', 'waterhole');
+            } elseif ($bundle === 'cp') {
+                // Use Vite for control panel assets
+                $urls[] = Vite::asset('resources/css/cp/app.css', 'waterhole');
             }
+            // For other bundles, fall back to the old system if needed
+            elseif (static::$assets[$bundle] ?? []) {
+                if (config('app.debug')) {
+                    static::flushBundle($bundle);
+                }
 
-            $key = static::cacheKey($bundle);
+                $key = static::cacheKey($bundle);
 
-            $files = array_merge(
-                $files,
-                Cache::rememberForever($key, function () use ($bundle) {
+                $files = Cache::rememberForever($key, function () use ($bundle) {
                     $assets = static::$assets[$bundle] ?? [];
                     return $assets ? [static::compile($assets, $bundle)] : [];
-                }),
-            );
+                });
+
+                $urls = array_merge($urls, array_map(fn($file) => asset(Storage::disk('public')->url($file)), $files));
+            }
         }
 
-        return array_map(fn($file) => asset(Storage::disk('public')->url($file)), $files);
+        return $urls;
     }
 
     /**

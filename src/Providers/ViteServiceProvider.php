@@ -44,3 +44,4 @@ class ViteServiceProvider extends ServiceProvider
         });
     }
 }
+
