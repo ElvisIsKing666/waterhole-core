@@ -1,43 +1,19 @@
 {
-  "__commonjsHelpers-legacy.js": {
-    "file": "_commonjsHelpers-legacy.js",
-    "name": "_commonjsHelpers"
-  },
   "__commonjsHelpers.js": {
     "file": "_commonjsHelpers.js",
     "name": "_commonjsHelpers"
   },
-  "_stimulus-legacy.js": {
-    "file": "stimulus-legacy.js",
-    "name": "stimulus"
-  },
-  "_stimulus-webpack-helpers-legacy.js": {
-    "file": "stimulus-webpack-helpers-legacy.js",
-    "name": "stimulus-webpack-helpers"
-  },
-  "_stimulus-webpack-helpers.js": {
-    "file": "stimulus-webpack-helpers.js",
-    "name": "stimulus-webpack-helpers"
+  "_debounce.js": {
+    "file": "debounce.js",
+    "name": "debounce"
   },
   "_stimulus.js": {
     "file": "stimulus.js",
     "name": "stimulus"
   },
-  "resources/css/cp/app-legacy.css": {
-    "file": "app-legacy2.js",
-    "name": "app",
-    "src": "resources/css/cp/app-legacy.css",
-    "isEntry": true
-  },
   "resources/css/cp/app.css": {
     "file": "app2.css",
     "src": "resources/css/cp/app.css",
-    "isEntry": true
-  },
-  "resources/css/global/app-legacy.css": {
-    "file": "app-legacy.js",
-    "name": "app",
-    "src": "resources/css/global/app-legacy.css",
     "isEntry": true
   },
   "resources/css/global/app.css": {
@@ -45,31 +21,17 @@
     "src": "resources/css/global/app.css",
     "isEntry": true
   },
-  "resources/js/cp/index-legacy.ts": {
-    "file": "index-legacy2.js",
-    "name": "index",
-    "src": "resources/js/cp/index-legacy.ts",
-    "isEntry": true,
-    "imports": [
-      "_stimulus-webpack-helpers-legacy.js"
-    ]
-  },
   "resources/js/cp/index.ts": {
     "file": "index2.js",
     "name": "index",
     "src": "resources/js/cp/index.ts",
     "isEntry": true,
     "imports": [
-      "_stimulus-webpack-helpers.js"
-    ]
-  },
-  "resources/js/emoji-legacy.ts": {
-    "file": "emoji-legacy.js",
-    "name": "emoji",
-    "src": "resources/js/emoji-legacy.ts",
-    "isEntry": true,
-    "imports": [
-      "_stimulus-legacy.js"
+      "_stimulus.js",
+      "_debounce.js"
+    ],
+    "css": [
+      "index.css"
     ]
   },
   "resources/js/emoji.ts": {
@@ -81,15 +43,6 @@
       "_stimulus.js"
     ]
   },
-  "resources/js/highlight-legacy.ts": {
-    "file": "highlight-legacy.js",
-    "name": "highlight",
-    "src": "resources/js/highlight-legacy.ts",
-    "isEntry": true,
-    "imports": [
-      "__commonjsHelpers-legacy.js"
-    ]
-  },
   "resources/js/highlight.ts": {
     "file": "highlight.js",
     "name": "highlight",
@@ -99,17 +52,6 @@
       "__commonjsHelpers.js"
     ]
   },
-  "resources/js/index-legacy.ts": {
-    "file": "index-legacy.js",
-    "name": "index",
-    "src": "resources/js/index-legacy.ts",
-    "isEntry": true,
-    "imports": [
-      "_stimulus-legacy.js",
-      "_stimulus-webpack-helpers-legacy.js",
-      "__commonjsHelpers-legacy.js"
-    ]
-  },
   "resources/js/index.ts": {
     "file": "index.js",
     "name": "index",
@@ -117,14 +59,8 @@
     "isEntry": true,
     "imports": [
       "_stimulus.js",
-      "_stimulus-webpack-helpers.js",
+      "_debounce.js",
       "__commonjsHelpers.js"
     ]
-  },
-  "vite/legacy-polyfills-legacy": {
-    "file": "polyfills-legacy.js",
-    "name": "polyfills",
-    "src": "vite/legacy-polyfills-legacy",
-    "isEntry": true
   }
 }
