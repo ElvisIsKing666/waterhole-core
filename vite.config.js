@@ -15,9 +15,9 @@ export default defineConfig({
             ],
             publicDirectory: 'resources/dist',
         }),
-        legacy({
-            targets: ['defaults', 'not IE 11']
-        }),
+        // legacy({
+        //     targets: ['defaults', 'not IE 11']
+        // }),
     ],
     build: {
         outDir: 'resources/dist',

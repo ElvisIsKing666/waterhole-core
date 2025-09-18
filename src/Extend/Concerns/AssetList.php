@@ -5,6 +5,8 @@ namespace Waterhole\Extend\Concerns;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Vite;
+use Waterhole\Extend\Script;
+use Waterhole\Extend\Stylesheet;
 
 /**
  * Manage a list of assets grouped into bundles.
@@ -38,12 +40,24 @@ trait AssetList
 
         foreach ($bundles as $bundle) {
             if ($bundle === 'default') {
-                // Use Vite directly for CSS assets
-                $urls[] = Vite::asset('resources/css/global/app.css', 'waterhole');
-                $urls[] = Vite::asset('resources/css/cp/app.css', 'waterhole');
+                // Use Vite directly for assets
+                if (static::class === Stylesheet::class) {
+                    // CSS assets
+                    $urls[] = Vite::asset('resources/css/global/app.css', 'waterhole');
+                    $urls[] = Vite::asset('resources/css/cp/app.css', 'waterhole');
+                } elseif (static::class === Script::class) {
+                    // JavaScript assets
+                    $urls[] = Vite::asset('resources/js/index.ts', 'waterhole');
+                    $urls[] = Vite::asset('resources/js/highlight.ts', 'waterhole');
+                    $urls[] = Vite::asset('resources/js/emoji.ts', 'waterhole');
+                }
             } elseif ($bundle === 'cp') {
                 // Use Vite for control panel assets
-                $urls[] = Vite::asset('resources/css/cp/app.css', 'waterhole');
+                if (static::class === Stylesheet::class) {
+                    $urls[] = Vite::asset('resources/css/cp/app.css', 'waterhole');
+                } elseif (static::class === Script::class) {
+                    $urls[] = Vite::asset('resources/js/cp/index.ts', 'waterhole');
+                }
             }
             // For other bundles, fall back to the old system if needed
             elseif (static::$assets[$bundle] ?? []) {
