@@ -36,11 +36,21 @@ class IndexNav extends Component
                     if ($node->content instanceof StructureHeading) {
                         return new NavHeading($node->content->name ?: '');
                     } elseif ($node->content instanceof Channel) {
-                        return new NavLink(
+                        $navLink = new NavLink(
                             label: $node->content->name,
                             icon: $node->content->icon,
                             href: $node->content->url,
                         );
+                        
+                        // Add title attribute if channel has description
+                        if ($node->content->description) {
+                            $strippedDescription = strip_tags($node->content->description);
+                            if (trim($strippedDescription)) {
+                                $navLink = $navLink->withAttributes(['title' => $strippedDescription]);
+                            }
+                        }
+                        
+                        return $navLink;
                     } elseif ($node->content instanceof StructureLink) {
                         return (new NavLink(
                             label: $node->content->name,
