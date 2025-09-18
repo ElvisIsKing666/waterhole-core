@@ -3,6 +3,18 @@
 return [
     /*
     |--------------------------------------------------------------------------
+    | Upload Disk
+    |--------------------------------------------------------------------------
+    |
+    | The disk to use for storing uploaded files. This can be configured via
+    | the WATERHOLE_UPLOAD_DISK environment variable. Defaults to 'public'.
+    |
+    */
+
+    'disk' => env('WATERHOLE_UPLOAD_DISK', 'public'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Allowed MIME Types
     |--------------------------------------------------------------------------
     |

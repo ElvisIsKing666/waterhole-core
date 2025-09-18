@@ -14,6 +14,8 @@ abstract class TestCase extends OrchestraTestCase
         return [
             WaterholeServiceProvider::class,
             \Laravel\Socialite\SocialiteServiceProvider::class,
+            \Intervention\Image\ImageServiceProvider::class,
+            \BladeUI\Icons\BladeIconsServiceProvider::class,
         ];
     }
 
@@ -33,6 +35,38 @@ abstract class TestCase extends OrchestraTestCase
         
         // Set up telescope to use testing database
         $app['config']->set('telescope.storage.database.connection', 'testing');
+        
+        // Set up filesystem for testing
+        $app['config']->set('filesystems.disks.public', [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+        ]);
+        
+        $app['config']->set('filesystems.disks.test-disk', [
+            'driver' => 'local',
+            'root' => storage_path('app/test-disk'),
+        ]);
+        
+        $app['config']->set('filesystems.disks.s3', [
+            'driver' => 's3',
+            'key' => 'test',
+            'secret' => 'test',
+            'region' => 'us-east-1',
+            'bucket' => 'test-bucket',
+        ]);
+        
+        // Set up icons configuration
+        $app['config']->set('blade-icons', [
+            'class' => 'icon',
+            'attributes' => [],
+            'fallback' => '',
+            'components' => [
+                'disabled' => false,
+                'default' => 'icon',
+                'class' => 'icon',
+                'attributes' => [],
+            ],
+        ]);
     }
 
     protected function setUp(): void
