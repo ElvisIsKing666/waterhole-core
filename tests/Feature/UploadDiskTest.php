@@ -25,7 +25,7 @@ it('should use default public disk when no configuration is set', function () {
     $upload = Upload::fromFile($file);
 
     // Assert file was stored on public disk
-    Storage::disk('public')->assertExists('uploads/' . $upload->filename);
+    Storage::disk('public')->assertExists(config('waterhole.uploads.path') . $upload->filename);
 
     // Assert upload was created with correct attributes
     expect($upload->filename)->toBeString()
@@ -46,7 +46,7 @@ it('should use configured disk when WATERHOLE_UPLOAD_DISK is set', function () {
     $upload = Upload::fromFile($file);
 
     // Assert file was stored on the configured disk
-    Storage::disk('test-disk')->assertExists('uploads/' . $upload->filename);
+    Storage::disk('test-disk')->assertExists(config('waterhole.uploads.path') . $upload->filename);
 
     // Assert upload attributes
     expect($upload->filename)->toBeString()
@@ -69,13 +69,13 @@ it('should delete files from the configured disk when upload is deleted', functi
     $filename = $upload->filename;
 
     // Assert file exists
-    Storage::disk('test-disk')->assertExists('uploads/' . $filename);
+    Storage::disk('test-disk')->assertExists(config('waterhole.uploads.path') . $filename);
 
     // Delete the upload
     $upload->delete();
 
     // Assert file was deleted from the configured disk
-    Storage::disk('test-disk')->assertMissing('uploads/' . $filename);
+    Storage::disk('test-disk')->assertMissing(config('waterhole.uploads.path') . $filename);
 });
 
 it('should handle non-image files correctly', function () {
@@ -89,7 +89,7 @@ it('should handle non-image files correctly', function () {
     $upload = Upload::fromFile($file);
 
     // Assert file was stored
-    Storage::disk('test-disk')->assertExists('uploads/' . $upload->filename);
+    Storage::disk('test-disk')->assertExists(config('waterhole.uploads.path') . $upload->filename);
 
     // Assert upload attributes (no width/height for non-images)
     expect($upload->filename)->toBeString()
@@ -110,7 +110,7 @@ it('should work with s3 disk configuration', function () {
     $upload = Upload::fromFile($file);
 
     // Assert file was stored on S3 disk
-    Storage::disk('s3')->assertExists('uploads/' . $upload->filename);
+    Storage::disk('s3')->assertExists(config('waterhole.uploads.path') . $upload->filename);
 
     // Assert upload attributes
     expect($upload->filename)->toBeString()
@@ -135,8 +135,8 @@ it('should generate unique filenames for uploads', function () {
     expect($upload1->filename)->not->toBe($upload2->filename);
 
     // Assert both files exist
-    Storage::disk('test-disk')->assertExists('uploads/' . $upload1->filename);
-    Storage::disk('test-disk')->assertExists('uploads/' . $upload2->filename);
+    Storage::disk('test-disk')->assertExists(config('waterhole.uploads.path') . $upload1->filename);
+    Storage::disk('test-disk')->assertExists(config('waterhole.uploads.path') . $upload2->filename);
 });
 
 it('should expand upload:// URLs using the configured disk', function () {
@@ -163,7 +163,7 @@ it('should expand upload:// URLs using the configured disk', function () {
         ->and($expandedUrl)->toStartWith('/storage/');
 
     // Verify the file exists on the configured disk
-    Storage::disk('custom-disk')->assertExists('uploads/' . $upload->filename);
+    Storage::disk('custom-disk')->assertExists(config('waterhole.uploads.path') . $upload->filename);
 });
 
 it('should expand upload:// URLs using different disk configurations', function () {
@@ -187,7 +187,7 @@ it('should expand upload:// URLs using different disk configurations', function 
         ->and($expandedUrl)->toStartWith('/storage/');
 
     // Verify the file exists on the configured S3 disk
-    Storage::disk('s3')->assertExists('uploads/' . $upload->filename);
+    Storage::disk('s3')->assertExists(config('waterhole.uploads.path') . $upload->filename);
 });
 
 it('should not modify non-upload URLs', function () {
@@ -222,8 +222,8 @@ it('should use configured disk instead of hardcoded public disk', function () {
     $upload = Upload::fromFile($file);
 
     // Verify file was stored on the configured disk, not public
-    Storage::disk('custom-storage')->assertExists('uploads/' . $upload->filename);
-    Storage::disk('public')->assertMissing('uploads/' . $upload->filename);
+    Storage::disk('custom-storage')->assertExists(config('waterhole.uploads.path') . $upload->filename);
+    Storage::disk('public')->assertMissing(config('waterhole.uploads.path') . $upload->filename);
 
     // Test URL expansion uses the configured disk
     $reflection = new ReflectionClass(FormatUploads::class);
@@ -238,7 +238,7 @@ it('should use configured disk instead of hardcoded public disk', function () {
         ->and($expandedUrl)->toContain($upload->filename);
 
     // Verify the file exists on the correct disk
-    Storage::disk('custom-storage')->assertExists('uploads/' . $upload->filename);
+    Storage::disk('custom-storage')->assertExists(config('waterhole.uploads.path') . $upload->filename);
 });
 
 it('should store user avatars on the configured disk', function () {
