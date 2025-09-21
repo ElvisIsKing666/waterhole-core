@@ -46,13 +46,17 @@ class InstallCommand extends Command
 
     private function migrate(): void
     {
-        $this->call('migrate');
+        $this->call('migrate', [
+            '--database' => config('waterhole.system.database', 'waterhole'),
+            '--path' => 'vendor/waterhole/core/database/migrations',
+        ]);
     }
 
     private function seed(): void
     {
         $this->call('db:seed', [
             '--class' => DefaultSeeder::class,
+            '--database' => config('waterhole.system.database', 'waterhole'),
             '--force' => true,
         ]);
     }

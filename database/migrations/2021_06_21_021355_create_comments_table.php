@@ -46,7 +46,7 @@ return new class extends Migration {
         // Add fulltext indexes only for MySQL
         if (DB::connection()->getDriverName() === 'mysql') {
             Schema::table('comments', function (Blueprint $table) {
-                $table->index('body')->fulltext();
+                $table->fulltext('body');
             });
         }
     }
