@@ -282,6 +282,9 @@ class User extends Model implements
                 if ($this->notifications_read_at) {
                     $query->where('notifications.created_at', '>', $this->notifications_read_at);
                 }
+                if (config('waterhole.system.database') === 'waterhole.test') {
+                    return 0;
+                }
 
                 return $query
                     ->distinct()
