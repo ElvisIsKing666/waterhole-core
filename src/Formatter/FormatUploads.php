@@ -14,6 +14,7 @@ abstract class FormatUploads
 {
     public const PROTOCOL = 'upload://';
 
+
     /**
      * Formatter configuration callback.
      */
@@ -51,6 +52,7 @@ abstract class FormatUploads
                 }
             }
             $attributes['src'] = static::expandUrl($attributes['src']);
+            ray($attributes['src']);
             return $attributes;
         });
 
@@ -64,7 +66,7 @@ abstract class FormatUploads
     {
         if (str_starts_with($url, static::PROTOCOL)) {
             return Storage::disk(config('waterhole.uploads.disk'))->url(
-                'uploads/' . substr($url, strlen(static::PROTOCOL)),
+                config('waterhole.uploads.path') . substr($url, strlen(static::PROTOCOL)),
             );
         }
         return $url;
