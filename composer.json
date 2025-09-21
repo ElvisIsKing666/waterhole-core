@@ -20,11 +20,13 @@
         "laravel/socialite": "^5.23",
         "s9e/text-formatter": "^2.13",
         "secondnetwork/blade-tabler-icons": "^3.0",
+        "spatie/laravel-ray": "^1.40",
         "staudenmeir/laravel-adjacency-list": "^1.7",
         "staudenmeir/laravel-cte": "^1.0",
         "waterhole/sso": "^0.1"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.1",
         "larastan/larastan": "^2.11",
         "orchestra/testbench": "^8.5",
         "pestphp/pest": "^2.36"
