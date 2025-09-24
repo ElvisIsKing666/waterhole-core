@@ -26,11 +26,6 @@ class IndexNav extends Component
             ->filter(fn(Structure $node) => $node->content);
 
         $this->nav = collect([
-            new NavLink(
-                label: __('waterhole::forum.feed-link'),
-                icon: 'tabler-news',
-                route: 'waterhole.home',
-            ),
             ...$structure
                 ->map(function (Structure $node) {
                     if ($node->content instanceof StructureHeading) {
