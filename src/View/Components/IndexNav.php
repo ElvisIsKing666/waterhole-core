@@ -42,11 +42,11 @@ class IndexNav extends Component
                             href: $node->content->url,
                         );
                         
-                        // Add title attribute if channel has description
+                        // Add description as data attribute if channel has description
                         if ($node->content->description) {
                             $strippedDescription = strip_tags($node->content->description);
                             if (trim($strippedDescription)) {
-                                $navLink = $navLink->withAttributes(['title' => $strippedDescription]);
+                                $navLink = $navLink->withAttributes(['data-description' => $strippedDescription]);
                             }
                         }
                         

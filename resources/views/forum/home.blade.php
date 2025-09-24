@@ -49,13 +49,15 @@
         padding: var(--space-xl) 0;
     }
 
-    /* Style nav headings - full width */
+    /* Style nav headings - 3/4 width of container */
     .index-nav-full-width .nav-heading {
-        width: 100%;
+        width: 75%;
+        margin-left: 12.5%; /* Center the 3/4 width header */
         text-align: left;
         font-weight: 600;
         color: var(--palette-text);
-        margin: var(--space-lg) 0 var(--space-sm) 0;
+        margin-top: var(--space-lg);
+        margin-bottom: var(--space-sm);
         font-size: var(--text-lg);
         text-transform: none;
         letter-spacing: 0;
@@ -66,10 +68,10 @@
         border-radius: var(--radius-sm);
     }
 
-    /* Style individual nav items - 3/4 width and indented */
+    /* Style individual nav items - 3/4 width of header (56.25% of container) */
     .index-nav-full-width .nav-link {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: var(--space-xs);
         padding: var(--space-md);
         background: var(--palette-surface);
@@ -78,12 +80,38 @@
         text-decoration: none;
         color: var(--palette-text);
         transition: all 0.2s ease;
-        min-height: 3rem;
+        min-height: auto;
         font-weight: 500;
-        width: 75%;
-        margin-left: 12.5%;
-        /* This creates the 3/4 width with left indentation */
+        width: 56.25%; /* 3/4 of 75% = 56.25% of container */
+        margin-left: 21.875%; /* (100% - 56.25%) / 2 = 21.875% */
         border-left: 4px solid var(--palette-accent-soft);
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Style the nav link content container */
+    .index-nav-full-width .nav-link .nav-link-content {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+        width: 100%;
+    }
+
+    /* Style the channel/page name */
+    .index-nav-full-width .nav-link .label {
+        font-size: var(--text-md);
+        font-weight: 500;
+        color: var(--palette-text);
+        margin: 0;
+    }
+
+    /* Style the channel/page description */
+    .index-nav-full-width .nav-link .description {
+        font-size: var(--text-sm);
+        color: var(--palette-muted);
+        margin-top: var(--space-xs);
+        line-height: 1.4;
+        font-weight: 400;
     }
 
     .index-nav-full-width .nav-link:hover {
@@ -109,20 +137,18 @@
         flex-shrink: 0;
     }
 
-/* Style the label */
-.index-nav-full-width .nav-link .label {
-    flex: 1;
-    text-align: left;
-}
-
     /* Responsive design */
     @media (max-width: 768px) {
-        .index-nav-full-width .nav-link {
+        .index-nav-full-width .nav-heading {
             width: 90%;
             margin-left: 5%;
-            /* Adjust indentation for mobile */
         }
-
+        
+        .index-nav-full-width .nav-link {
+            width: 67.5%; /* 3/4 of 90% = 67.5% */
+            margin-left: 16.25%; /* (100% - 67.5%) / 2 = 16.25% */
+        }
+        
         .index-nav-full-width .nav-heading {
             padding-left: var(--space-sm);
         }
