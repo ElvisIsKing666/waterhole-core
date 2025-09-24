@@ -52,7 +52,8 @@
     /* Style nav headings - 3/4 width of container */
     .index-nav-full-width .nav-heading {
         width: 75%;
-        margin-left: 12.5%; /* Center the 3/4 width header */
+        margin-left: 12.5%;
+        /* Center the 3/4 width header */
         text-align: left;
         font-weight: 600;
         color: var(--palette-text);
@@ -82,8 +83,10 @@
         transition: all 0.2s ease;
         min-height: auto;
         font-weight: 500;
-        width: 56.25%; /* 3/4 of 75% = 56.25% of container */
-        margin-left: 21.875%; /* (100% - 56.25%) / 2 = 21.875% */
+        width: 56.25%;
+        /* 3/4 of 75% = 56.25% of container */
+        margin-left: 21.875%;
+        /* (100% - 56.25%) / 2 = 21.875% */
         border-left: 4px solid var(--palette-accent-soft);
         flex-direction: column;
         align-items: flex-start;
@@ -92,9 +95,10 @@
     /* Style the nav link content container */
     .index-nav-full-width .nav-link .nav-link-content {
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         gap: var(--space-xs);
         width: 100%;
+        flex-wrap: wrap;
     }
 
     /* Style the channel/page name */
@@ -103,6 +107,12 @@
         font-weight: 500;
         color: var(--palette-text);
         margin: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        line-height: 1.3;
+        flex: 1;
+        min-width: 0; /* Allows flex item to shrink below content size */
     }
 
     /* Style the channel/page description */
@@ -112,6 +122,10 @@
         margin-top: var(--space-xs);
         line-height: 1.4;
         font-weight: 400;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        white-space: normal;
     }
 
     .index-nav-full-width .nav-link:hover {
@@ -143,12 +157,14 @@
             width: 90%;
             margin-left: 5%;
         }
-        
+
         .index-nav-full-width .nav-link {
-            width: 67.5%; /* 3/4 of 90% = 67.5% */
-            margin-left: 16.25%; /* (100% - 67.5%) / 2 = 16.25% */
+            width: 67.5%;
+            /* 3/4 of 90% = 67.5% */
+            margin-left: 16.25%;
+            /* (100% - 67.5%) / 2 = 16.25% */
         }
-        
+
         .index-nav-full-width .nav-heading {
             padding-left: var(--space-sm);
         }
