@@ -58,6 +58,7 @@ delete-structure-confirm-message = Are you sure you want to delete this node?
 edit-heading-title = Edit Heading
 create-heading-title = Create a Heading
 heading-name-label = Name
+heading-subheading-label = Subheading
 
 ## Structure - Link
 

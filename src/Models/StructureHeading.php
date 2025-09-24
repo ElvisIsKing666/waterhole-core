@@ -9,6 +9,7 @@ use Waterhole\Models\Concerns\ValidatesData;
 /**
  * @property int $id
  * @property string $name
+ * @property string|null $subheading
  * @property-read string $edit_url
  */
 class StructureHeading extends Model
@@ -29,6 +30,7 @@ class StructureHeading extends Model
     {
         return [
             'name' => ['nullable', 'string', 'max:255'],
+            'subheading' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

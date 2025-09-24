@@ -34,7 +34,7 @@ class IndexNav extends Component
             ...$structure
                 ->map(function (Structure $node) {
                     if ($node->content instanceof StructureHeading) {
-                        return new NavHeading($node->content->name ?: '');
+                        return new NavHeading($node->content->name ?: '', $node->content->subheading);
                     } elseif ($node->content instanceof Channel) {
                         $navLink = new NavLink(
                             label: $node->content->name,

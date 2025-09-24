@@ -1,33 +1,20 @@
-<li
-    class="card__row cp-structure__node"
-    data-id="{{ $node->id }}"
-    data-content-type="{{ $node->content->getMorphClass() }}"
-    aria-labelledby="label_{{ $node->id }}"
->
+<li class="card__row cp-structure__node" data-id="{{ $node->id }}"
+    data-content-type="{{ $node->content->getMorphClass() }}" aria-labelledby="label_{{ $node->id }}">
     <div class="cp-structure__content row gap-md">
         <button type="button" class="drag-handle" data-handle>
             @icon('tabler-grip-vertical')
         </button>
 
         @if ($node->content instanceof Waterhole\Models\Channel)
-            <x-waterhole::channel-label
-                :channel="$node->content"
-                class="cp-structure__label"
-                link
-                target="_blank"
-                id="label_{{ $node->id }}"
-            />
+            <x-waterhole::channel-label :channel="$node->content" class="cp-structure__label" link target="_blank"
+                id="label_{{ $node->id }}" />
             <span class="with-icon text-xs color-muted hide-sm">
                 @icon('tabler-message-circle-2')
                 <span>{{ __('waterhole::cp.structure-channel-label') }}</span>
             </span>
         @elseif ($node->content instanceof Waterhole\Models\Page)
-            <a
-                href="{{ $node->content->url }}"
-                class="cp-structure__label with-icon color-text"
-                target="_blank"
-                id="label_{{ $node->id }}"
-            >
+            <a href="{{ $node->content->url }}" class="cp-structure__label with-icon color-text" target="_blank"
+                id="label_{{ $node->id }}">
                 @icon($node->content->icon ?? null)
                 <span>{{ $node->content->name ?? 'Page' }}</span>
             </a>
@@ -36,16 +23,15 @@
                 <span>{{ __('waterhole::cp.structure-page-label') }}</span>
             </span>
         @elseif ($node->content instanceof Waterhole\Models\StructureHeading)
-            <span class="cp-structure__label color-muted" id="label_{{ $node->id }}">
-                {{ $node->content->name ?? __('waterhole::cp.structure-heading-label') }}
-            </span>
+            <div class="cp-structure__label color-muted" id="label_{{ $node->id }}">
+                <div>{{ $node->content->name ?? __('waterhole::cp.structure-heading-label') }}</div>
+                @if($node->content->subheading)
+                    <div class="text-xs color-muted-soft">{{ $node->content->subheading }}</div>
+                @endif
+            </div>
         @elseif ($node->content instanceof Waterhole\Models\StructureLink)
-            <a
-                href="{{ $node->content->href }}"
-                class="cp-structure__label with-icon color-text"
-                target="_blank"
-                id="label_{{ $node->id }}"
-            >
+            <a href="{{ $node->content->href }}" class="cp-structure__label with-icon color-text" target="_blank"
+                id="label_{{ $node->id }}">
                 @icon($node->content->icon ?? null)
                 <span>{{ $node->content->name ?? 'Link' }}</span>
             </a>
@@ -57,13 +43,15 @@
 
         <div class="grow"></div>
 
-        @if (method_exists($node->content, 'permissions') &&
-            ($recipients = Waterhole::permissions()
-                ->scope($node->content)
-                ->where('ability', 'view')
-                ->load('recipient')
-                ->filter(fn ($permission) => $permission->recipient instanceof Waterhole\Models\Group)->map
-                ->recipient))
+        @if (
+                method_exists($node->content, 'permissions') &&
+                ($recipients = Waterhole::permissions()
+                    ->scope($node->content)
+                    ->where('ability', 'view')
+                    ->load('recipient')
+                    ->filter(fn($permission) => $permission->recipient instanceof Waterhole\Models\Group)->map
+                    ->recipient)
+            )
             @if ($recipients->contains(Waterhole\Models\Group::GUEST_ID))
                 <span class="with-icon text-xs color-muted hide-sm">
                     @icon('tabler-world')
@@ -85,11 +73,6 @@
             @endif
         @endif
 
-        <x-waterhole::action-buttons
-            :for="$node->content"
-            context="cp"
-            :limit="2"
-            class="text-xs"
-        />
+        <x-waterhole::action-buttons :for="$node->content" context="cp" :limit="2" class="text-xs" />
     </div>
 </li>
