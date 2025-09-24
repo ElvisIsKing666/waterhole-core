@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import legacy from '@vitejs/plugin-legacy';
 
 export default defineConfig({
     plugins: [
@@ -15,9 +14,6 @@ export default defineConfig({
             ],
             publicDirectory: 'resources/dist',
         }),
-        // legacy({
-        //     targets: ['defaults', 'not IE 11']
-        // }),
     ],
     build: {
         outDir: 'resources/dist',
