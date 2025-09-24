@@ -2,8 +2,9 @@
     data-post-feed-filter-value="{{ $feed->currentFilter->handle() }}"
     data-post-feed-public-channels-value="@json(Waterhole\Models\Channel::allPermitted(null))"
     data-post-feed-channels-value="@json($channel ? [$channel->id] : Waterhole\Models\Channel::pluck('id'))">
-    {{-- Skip the channel card and pinned posts, only show toolbar --}}
-    @components(Waterhole\Extend\PostFeedHeader::build()->filter(fn($component) => $component !== Waterhole\View\Components\PostFeedChannel::class), compact('feed', 'channel'))
+    {{-- Skip the channel card, only show pinned posts and toolbar --}}
+    <x-waterhole::post-feed-pinned :feed="$feed" :channel="$channel" />
+    <x-waterhole::post-feed-toolbar :feed="$feed" :channel="$channel" />
 
     <div>
         <form class="post-feed__refresh animate-appear" data-post-feed-target="newActivity" data-turbo-frame="post-feed"
