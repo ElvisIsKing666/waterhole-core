@@ -3,18 +3,22 @@
 namespace Waterhole\View\Components;
 
 use Illuminate\View\Component;
+use Waterhole\Filters\Latest;
+use Waterhole\Filters\Newest;
 use Waterhole\Models\Channel;
-use Waterhole\View\Components\Concerns\HasFeed;
 
 class PostFeedNoChannel extends Component
 {
-    use HasFeed;
+    public bool $showLastVisit;
 
     public function __construct(
-        public $feed,
+        public \Waterhole\Feed\PostFeed $feed,
         public ?Channel $channel = null,
-        public bool $showLastVisit = true,
     ) {
+        $this->channel = $channel?->exists ? $channel : null;
+
+        $filter = $feed->currentFilter;
+        $this->showLastVisit = $filter instanceof Newest || $filter instanceof Latest;
     }
 
     public function render()
