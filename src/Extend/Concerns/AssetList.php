@@ -40,11 +40,27 @@ trait AssetList
 
         foreach ($bundles as $bundle) {
             if ($bundle === 'default') {
-                // Use Vite directly for assets
+                // Use Vite for core waterhole assets
                 if (static::class === Stylesheet::class) {
-                    // CSS assets
+                    // Core waterhole CSS (Vite)
                     $urls[] = Vite::asset('resources/css/global/app.css', 'waterhole');
                     $urls[] = Vite::asset('resources/css/cp/app.css', 'waterhole');
+                    
+                    // Custom CSS (old compilation system)
+                    if (static::$assets['default'] ?? []) {
+                        if (config('app.debug')) {
+                            static::flushBundle('default');
+                        }
+
+                        $key = static::cacheKey('default');
+
+                        $files = Cache::rememberForever($key, function () {
+                            $assets = static::$assets['default'] ?? [];
+                            return $assets ? [static::compile($assets, 'default')] : [];
+                        });
+
+                        $urls = array_merge($urls, array_map(fn($file) => asset(Storage::disk('public')->url($file)), $files));
+                    }
                 } elseif (static::class === Script::class) {
                     // JavaScript assets
                     $urls[] = Vite::asset('resources/js/index.ts', 'waterhole');

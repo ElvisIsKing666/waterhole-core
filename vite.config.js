@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import waterholeAssets from '../../market-app/vite.plugins/waterhole-assets.js';
 
 export default defineConfig({
     plugins: [
@@ -14,6 +15,7 @@ export default defineConfig({
             ],
             publicDirectory: 'resources/dist',
         }),
+        waterholeAssets(),
     ],
     build: {
         outDir: 'resources/dist',
