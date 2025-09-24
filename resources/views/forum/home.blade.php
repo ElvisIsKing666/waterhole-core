@@ -114,9 +114,12 @@
         flex: 1;
         min-width: 0;
         /* Allows flex item to shrink below content size */
-        white-space: normal; /* Allow normal text wrapping */
-        width: 100%; /* Ensure it takes full width of container */
-        display: block; /* Make it a block element for proper wrapping */
+        white-space: normal;
+        /* Allow normal text wrapping */
+        width: 100%;
+        /* Ensure it takes full width of container */
+        display: block;
+        /* Make it a block element for proper wrapping */
     }
 
     /* Style the channel/page description */

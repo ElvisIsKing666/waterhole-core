@@ -1,10 +1,8 @@
-<a
-    {{
-        $attributes
-            ->merge(['href' => $href ?: ($route ? route($route) : null)])
-            ->class([$attributes->has('class') ? '' : 'nav-link', 'is-active' => $isActive])
-    }}
->
+<a {{
+    $attributes
+        ->merge(['href' => $href ?: ($route ? route($route) : null)])
+        ->class([$attributes->has('class') ? '' : 'nav-link', 'is-active' => $isActive])
+    }}>
     <div class="nav-link-content">
         @icon($icon)
         <span class="label">{{ $label }}</span>
