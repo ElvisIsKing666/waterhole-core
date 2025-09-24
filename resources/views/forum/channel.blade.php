@@ -18,7 +18,7 @@
 
             {{-- Channel content at 3/4 width --}}
             <div class="channel-content">
-                <x-waterhole::post-feed :feed="$feed" :channel="$channel" />
+                <x-waterhole::post-feed-no-channel :feed="$feed" :channel="$channel" />
             </div>
         </div>
     </div>
