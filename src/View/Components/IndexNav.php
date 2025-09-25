@@ -26,6 +26,8 @@ class IndexNav extends Component
             ->filter(fn(Structure $node) => $node->content);
 
         $this->nav = collect([
+            // Add logo as first navigation item
+            new NavLogoLink(href: route('waterhole.home')),
             ...$structure
                 ->map(function (Structure $node) {
                     if ($node->content instanceof StructureHeading) {
