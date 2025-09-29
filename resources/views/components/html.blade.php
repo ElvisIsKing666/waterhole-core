@@ -21,11 +21,16 @@
         @endif
     </script>
 
-    @foreach (Waterhole\Extend\Stylesheet::urls(['default', 'default-' . App::getLocale(), ...$assets]) as $url)
+    @php
+        $stylesheetClass = app(\Waterhole\Extend\Stylesheet::class);
+        $scriptClass = app(\Waterhole\Extend\Script::class);
+    @endphp
+
+    @foreach ($stylesheetClass::urls(['default', 'default-' . App::getLocale(), ...$assets]) as $url)
         <link href="{{ $url }}" rel="stylesheet" data-turbo-track="reload" />
     @endforeach
 
-    @foreach (Waterhole\Extend\Script::urls(['default', 'default-' . App::getLocale(), ...$assets]) as $url)
+    @foreach ($scriptClass::urls(['default', 'default-' . App::getLocale(), ...$assets]) as $url)
         <script src="{{ $url }}" defer type="module" data-turbo-track="reload"></script>
     @endforeach
 
