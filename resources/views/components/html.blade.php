@@ -24,6 +24,8 @@
     @php
         $stylesheetClass = app(\Waterhole\Extend\Stylesheet::class);
         $scriptClass = app(\Waterhole\Extend\Script::class);
+        \Illuminate\Support\Facades\Log::info('Blade template resolved Stylesheet class: ' . get_class($stylesheetClass));
+        \Illuminate\Support\Facades\Log::info('Blade template resolved Script class: ' . get_class($scriptClass));
     @endphp
 
     @foreach ($stylesheetClass::urls(['default', 'default-' . App::getLocale(), ...$assets]) as $url)
